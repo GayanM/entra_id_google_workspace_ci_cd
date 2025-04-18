@@ -8,27 +8,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: 📦 Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup PowerShell
-        uses: PowerShell/PowerShell@v1
+      - name: 🔄 Export Google Workspace App Config
+        shell: pwsh
+        run: ./scripts/export_google_workspace_app.ps1
 
-      - name: Export Google Workspace App Config
-        run: pwsh ./scripts/export_google_workspace_app.ps1
-
-      - name: Commit exported config back to repo
+      - name: 🔁 Commit exported config to repo
+        shell: pwsh
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
           git add ./config/google_workspace_config.json ./config/user_assignments.csv
-          git commit -m "Auto-export latest Google Workspace app config"
+          git commit -m "[auto-export] Google Workspace config"
           git push
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
 
-      - name: Import Enterprise App
-        run: pwsh ./scripts/import_google_workspace_app.ps1
+      - name: 🚀 Import App Configuration
+        shell: pwsh
+        run: ./scripts/import_google_workspace_app.ps1
 
-      - name: Assign Users
-        run: pwsh ./scripts/assign_users.ps1
+      - name: 👥 Assign Users
+        shell: pwsh
+        run: ./scripts/assign_users.ps1
