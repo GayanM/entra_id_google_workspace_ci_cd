@@ -33,7 +33,7 @@ Connect-MgGraph -AccessToken $secureToken
 Write-Host "✅ Connected to Microsoft Graph using token."
 
 # Get the Google Workspace Enterprise App
-$sp = Get-MgServicePrincipal -SearchString "Google"
+$sp = Get-MgServicePrincipal -Filter "DisplayName eq 'Google Cloud / G Suite Connector by Microsoft'"
 Write-Host "🔎 Service principal found: $($sp.DisplayName) [$($sp.Id)]"
 
 # Ensure export directory exists relative to this script
