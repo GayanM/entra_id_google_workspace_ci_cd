@@ -8,15 +8,16 @@ if (-not $tenantId -or -not $clientId -or -not $clientSecret) {
     exit 1
 }
 
-# Convert client secret to secure string
-#$secureSecret = ConvertTo-SecureString $clientSecret -AsPlainText -Force
+# Connect to Microsoft Graph with client credentials
+try {
+    Connect-MgGraph -ClientId $clientId -TenantId $tenantId -ClientSecret $clientSecret -NoWelcome
+    Write-Host "✅ Authenticated to Microsoft Graph as app: $clientId"
+}
+catch {
+    Write-Error "❌ Failed to authenticate: $_"
+    exit 1
+}
 
-# Connect to Microsoft Graph using client credentials
-Connect-MgGraph -ClientId $clientId -TenantId $tenantId -ClientSecret $clientSecret
-
-# Confirm the connection
-$context = Get-MgContext
-Write-Output "✅ Connected to tenant: $($context.TenantId)"
 #$tenantId = $env:AZURE_TENANT_ID
 #$clientId = $env:AZURE_CLIENT_ID
 #$clientSecret = $env:AZURE_CLIENT_SECRET
