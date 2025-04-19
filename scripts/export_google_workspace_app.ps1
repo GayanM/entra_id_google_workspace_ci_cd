@@ -1,3 +1,6 @@
+Import-Module Microsoft.Graph -ErrorAction Stop
+Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
 # Load credentials from environment
 $tenantId     = $env:AZURE_TENANT_ID
 $clientId     = $env:AZURE_CLIENT_ID
