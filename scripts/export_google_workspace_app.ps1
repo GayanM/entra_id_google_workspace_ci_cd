@@ -1,5 +1,10 @@
+# Install MSAL module if not already available
+if (-not (Get-Module -ListAvailable -Name Microsoft.Authentication.MSAL.PS)) {
+    Install-Module Microsoft.Authentication.MSAL.PS -Force -Scope CurrentUser
+}
+
 Import-Module Microsoft.Graph -ErrorAction Stop
-Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+Import-Module Microsoft.Authentication.MSAL.PS -ErrorAction Stop
 
 # Load credentials from environment
 $tenantId     = $env:AZURE_TENANT_ID
