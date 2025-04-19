@@ -35,8 +35,15 @@ Write-Host "✅ Connected to Microsoft Graph using token."
 # Get the Google Workspace Enterprise App
 $sp = Get-MgServicePrincipal -Filter "DisplayName eq 'Google Workspace'"
 
-# Export service principal configuration
-$sp | ConvertTo-Json -Depth 10 | Out-File "../config/google_workspace_config.json"
+# Ensure export directory exists relative to this script
+$exportPath = Join-Path $PSScriptRoot "../config"
+if (-not (Test-Path $exportPath)) {
+    New-Item -ItemType Directory -Path $exportPath -Force | Out-Null
+}
+
+# Export service principal config
+$sp | ConvertTo-Json -Depth 10 | Out-File (Join-Path $exportPath "google_workspace_config.json")
+Write-Host "✅ Exported service principal config"
 
 # Export user assignments
 Get-MgServicePrincipalAppRoleAssignedTo -ServicePrincipalId $sp.Id |
