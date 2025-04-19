@@ -37,9 +37,12 @@ $sp = Get-MgServicePrincipal -Filter "DisplayName eq 'Google Workspace'"
 
 # Ensure export directory exists relative to this script
 $exportPath = Join-Path $PSScriptRoot "../config"
+
 if (-not (Test-Path $exportPath)) {
     New-Item -ItemType Directory -Path $exportPath -Force | Out-Null
 }
+
+Write-Host "📁 Export path is: $exportPath"
 
 # Export service principal config
 $sp | ConvertTo-Json -Depth 10 | Out-File (Join-Path $exportPath "google_workspace_config.json")
