@@ -1,34 +1,32 @@
-# Install MSAL module if not already available
-if (-not (Get-Module -ListAvailable -Name Microsoft.Authentication.MSAL.PS)) {
-    Install-Module Microsoft.Authentication.MSAL.PS -Force -Scope CurrentUser
-}
-
+# Import Microsoft Graph module
 Import-Module Microsoft.Graph -ErrorAction Stop
-Import-Module Microsoft.Authentication.MSAL.PS -ErrorAction Stop
 
-# Load credentials from environment
+# Load credentials from environment variables
 $tenantId     = $env:AZURE_TENANT_ID
 $clientId     = $env:AZURE_CLIENT_ID
 $clientSecret = $env:AZURE_CLIENT_SECRET
 
-# Validate input
+# Validate inputs
 if (-not $tenantId -or -not $clientId -or -not $clientSecret) {
-    Write-Error "❌ One or more required environment variables are missing: AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET"
+    Write-Error "❌ Missing one or more required environment variables."
     exit 1
 }
 
-# ✅ Get access token using Client Credentials via MSAL
-$token = Get-MsalToken `
-    -ClientId $clientId `
-    -ClientSecret (ConvertTo-SecureString $clientSecret -AsPlainText -Force) `
-    -TenantId $tenantId `
-    -Scopes "https://graph.microsoft.com/.default"
+# Acquire Microsoft Graph token using client credentials
+$tokenResponse = Invoke-RestMethod -Method Post -Uri "https://login.microsoftonline.com/$tenantId/oauth2/v2.0/token" -Body @{
+    client_id     = $clientId
+    scope         = "https://graph.microsoft.com/.default"
+    client_secret = $clientSecret
+    grant_type    = "client_credentials"
+} -ContentType "application/x-www-form-urlencoded"
 
-if (-not $token.AccessToken) {
-    Write-Error "❌ Failed to acquire token using client credentials."
+$accessToken = $tokenResponse.access_token
+
+if (-not $accessToken) {
+    Write-Error "❌ Failed to retrieve access token."
     exit 1
 }
 
-# 🔐 Authenticate using the access token
-Connect-MgGraph -AccessToken $token.AccessToken
-Write-Host "✅ Connected to Microsoft Graph."
+# Connect to Microsoft Graph using the token
+Connect-MgGraph -AccessToken $accessToken
+Write-Host "✅ Connected to Microsoft Graph using client credentials."
