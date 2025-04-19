@@ -12,22 +12,18 @@ if (-not $tenantId -or -not $clientId -or -not $clientSecret) {
     exit 1
 }
 
-# Get access token using MSAL
-$tokenResponse = az account get-access-token `
-    --service-principal `
-    --username $clientId `
-    --password $clientSecret `
-    --tenant $tenantId `
-    --resource https://graph.microsoft.com `
-    --output json | ConvertFrom-Json
+# ✅ Get access token using Client Credentials via MSAL
+$token = Get-MsalToken `
+    -ClientId $clientId `
+    -ClientSecret (ConvertTo-SecureString $clientSecret -AsPlainText -Force) `
+    -TenantId $tenantId `
+    -Scopes "https://graph.microsoft.com/.default"
 
-$accessToken = $tokenResponse.accessToken
-
-if (-not $accessToken) {
-    Write-Error "❌ Failed to retrieve access token."
+if (-not $token.AccessToken) {
+    Write-Error "❌ Failed to acquire token using client credentials."
     exit 1
 }
 
-# Connect to Microsoft Graph using the token
-Connect-MgGraph -AccessToken $accessToken
-Write-Output "✅ Connected to Microsoft Graph with token."
+# 🔐 Authenticate using the access token
+Connect-MgGraph -AccessToken $token.AccessToken
+Write-Host "✅ Connected to Microsoft Graph."
