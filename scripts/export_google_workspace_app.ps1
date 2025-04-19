@@ -12,9 +12,22 @@ if (-not $tenantId -or -not $clientId -or -not $clientSecret) {
     exit 1
 }
 
-# Create a ClientSecretCredential from Azure.Identity
-$credential = [Microsoft.Graph.Auth.ClientSecretCredentialFactory]::Create($tenantId, $clientId, $clientSecret)
+# Get access token using MSAL
+$tokenResponse = az account get-access-token `
+    --service-principal `
+    --username $clientId `
+    --password $clientSecret `
+    --tenant $tenantId `
+    --resource https://graph.microsoft.com `
+    --output json | ConvertFrom-Json
 
-# Connect to Microsoft Graph
-Connect-MgGraph -Credential $credential
-Write-Host "✅ Connected to Microsoft Graph using ClientSecretCredential."
+$accessToken = $tokenResponse.accessToken
+
+if (-not $accessToken) {
+    Write-Error "❌ Failed to retrieve access token."
+    exit 1
+}
+
+# Connect to Microsoft Graph using the token
+Connect-MgGraph -AccessToken $accessToken
+Write-Output "✅ Connected to Microsoft Graph with token."
