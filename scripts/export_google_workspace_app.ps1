@@ -1,3 +1,6 @@
+# Import Microsoft Graph module
+Import-Module Microsoft.Graph -ErrorAction Stop
+
 $tenantId = $env:AZURE_TENANT_ID
 $clientId = $env:AZURE_CLIENT_ID
 $clientSecret = $env:AZURE_CLIENT_SECRET
@@ -10,7 +13,7 @@ if (-not $tenantId -or -not $clientId -or -not $clientSecret) {
 
 # Connect to Microsoft Graph with client credentials
 try {
-    Connect-MgGraph -ClientId $clientId -TenantId $tenantId -ClientSecret $clientSecret -NoWelcome
+    Connect-MgGraph -ClientId $clientId -TenantId $tenantId -ClientSecret $clientSecret
     Write-Host "✅ Authenticated to Microsoft Graph as app: $clientId"
 }
 catch {
