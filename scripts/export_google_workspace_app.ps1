@@ -27,6 +27,7 @@ if (-not $accessToken) {
     exit 1
 }
 
-# Connect to Microsoft Graph using the token
-Connect-MgGraph -AccessToken $accessToken
-Write-Host "✅ Connected to Microsoft Graph using client credentials."
+# ✅ Convert access token to SecureString and connect
+$secureToken = ConvertTo-SecureString $accessToken -AsPlainText -Force
+Connect-MgGraph -AccessToken $secureToken
+Write-Host "✅ Connected to Microsoft Graph using token."
