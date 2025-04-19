@@ -9,10 +9,10 @@ if (-not $tenantId -or -not $clientId -or -not $clientSecret) {
 }
 
 # Convert client secret to secure string
-$secureSecret = ConvertTo-SecureString $clientSecret -AsPlainText -Force
+#$secureSecret = ConvertTo-SecureString $clientSecret -AsPlainText -Force
 
 # Connect to Microsoft Graph using client credentials
-Connect-MgGraph -ClientId $clientId -TenantId $tenantId -ClientSecret $secureSecret
+Connect-MgGraph -ClientId $clientId -TenantId $tenantId -ClientSecret $clientSecret
 
 # Confirm the connection
 $context = Get-MgContext
