@@ -1,1 +1,256 @@
-# Placeholder for google_workspace_config.json
+{
+  "AccountEnabled": true,
+  "AddIns": [],
+  "AlternativeNames": [],
+  "AppDescription": null,
+  "AppDisplayName": "Google Cloud / G Suite Connector by Microsoft",
+  "AppId": "02089b8d-40f9-4f37-8199-0c723f34002c",
+  "AppManagementPolicies": null,
+  "AppOwnerOrganizationId": "9e8e4882-f457-4dc2-91fb-09064739248d",
+  "AppRoleAssignedTo": null,
+  "AppRoleAssignmentRequired": true,
+  "AppRoleAssignments": null,
+  "AppRoles": [
+    {
+      "AllowedMemberTypes": [
+        "User"
+      ],
+      "Description": "msiam_access",
+      "DisplayName": "msiam_access",
+      "Id": "8eea5c46-96fe-4398-b9c2-02ac04d931ca",
+      "IsEnabled": true,
+      "Origin": "Application",
+      "Value": null
+    },
+    {
+      "AllowedMemberTypes": [
+        "User"
+      ],
+      "Description": "Default Organization",
+      "DisplayName": "Default Organization",
+      "Id": "9e79c739-f165-49e8-8745-fe08f1634b3b",
+      "IsEnabled": true,
+      "Origin": "Application",
+      "Value": null
+    }
+  ],
+  "ApplicationTemplateId": "01303a13-8322-4e06-bee5-80d612907131",
+  "ClaimsMappingPolicies": null,
+  "CreatedObjects": null,
+  "CustomSecurityAttributes": {},
+  "DelegatedPermissionClassifications": null,
+  "DeletedDateTime": null,
+  "Description": null,
+  "DisabledByMicrosoftStatus": null,
+  "DisplayName": "Google Cloud / G Suite Connector by Microsoft",
+  "Endpoints": null,
+  "FederatedIdentityCredentials": null,
+  "HomeRealmDiscoveryPolicies": null,
+  "Homepage": "https://www.google.com?metadata=googleapps|ISV9.1|primary|z",
+  "Id": "b7fb9b86-1c71-4b56-87ed-38add42c4ebf",
+  "Info": {
+    "LogoUrl": null,
+    "MarketingUrl": null,
+    "PrivacyStatementUrl": null,
+    "SupportUrl": null,
+    "TermsOfServiceUrl": null
+  },
+  "KeyCredentials": [
+    {
+      "CustomKeyIdentifier": [
+        7,
+        9,
+        238,
+        180,
+        179,
+        233,
+        82,
+        46,
+        178,
+        176,
+        217,
+        82,
+        117,
+        111,
+        142,
+        210,
+        154,
+        129,
+        193,
+        157,
+        221,
+        238,
+        39,
+        192,
+        75,
+        57,
+        170,
+        47,
+        141,
+        34,
+        146,
+        56
+      ],
+      "DisplayName": "CN=Microsoft Azure Federated SSO Certificate",
+      "EndDateTime": "2028-04-08T22:35:58Z",
+      "Key": null,
+      "KeyId": "e68dba46-aaf9-410d-8278-8ef0e93b0f4c",
+      "StartDateTime": "2025-04-08T22:35:58Z",
+      "Type": "AsymmetricX509Cert",
+      "Usage": "Verify"
+    },
+    {
+      "CustomKeyIdentifier": [
+        7,
+        9,
+        238,
+        180,
+        179,
+        233,
+        82,
+        46,
+        178,
+        176,
+        217,
+        82,
+        117,
+        111,
+        142,
+        210,
+        154,
+        129,
+        193,
+        157,
+        221,
+        238,
+        39,
+        192,
+        75,
+        57,
+        170,
+        47,
+        141,
+        34,
+        146,
+        56
+      ],
+      "DisplayName": "CN=Microsoft Azure Federated SSO Certificate",
+      "EndDateTime": "2028-04-08T22:35:58Z",
+      "Key": null,
+      "KeyId": "d2fcc9a1-2f0a-4d16-aa04-f3cb192e780d",
+      "StartDateTime": "2025-04-08T22:35:58Z",
+      "Type": "AsymmetricX509Cert",
+      "Usage": "Sign"
+    }
+  ],
+  "LoginUrl": "https://www.google.com/a/oneiamglobal.com/ServiceLogin?continue=https://mail.google.com",
+  "LogoutUrl": null,
+  "MemberOf": null,
+  "Notes": null,
+  "NotificationEmailAddresses": [
+    "admin@yxkld.onmicrosoft.com"
+  ],
+  "Oauth2PermissionGrants": null,
+  "Oauth2PermissionScopes": [
+    {
+      "AdminConsentDescription": "Allow the application to access Google Cloud / G Suite Connector by Microsoft on behalf of the signed-in user.",
+      "AdminConsentDisplayName": "Access Google Cloud / G Suite Connector by Microsoft",
+      "Id": "876c873d-477b-4389-b291-c93e961384ec",
+      "IsEnabled": true,
+      "Origin": null,
+      "Type": "User",
+      "UserConsentDescription": "Allow the application to access Google Cloud / G Suite Connector by Microsoft on your behalf.",
+      "UserConsentDisplayName": "Access Google Cloud / G Suite Connector by Microsoft",
+      "Value": "user_impersonation"
+    }
+  ],
+  "OwnedObjects": null,
+  "Owners": null,
+  "PasswordCredentials": [
+    {
+      "CustomKeyIdentifier": [
+        7,
+        9,
+        238,
+        180,
+        179,
+        233,
+        82,
+        46,
+        178,
+        176,
+        217,
+        82,
+        117,
+        111,
+        142,
+        210,
+        154,
+        129,
+        193,
+        157,
+        221,
+        238,
+        39,
+        192,
+        75,
+        57,
+        170,
+        47,
+        141,
+        34,
+        146,
+        56
+      ],
+      "DisplayName": "CN=Microsoft Azure Federated SSO Certificate",
+      "EndDateTime": "2028-04-08T22:35:58Z",
+      "Hint": null,
+      "KeyId": "d2fcc9a1-2f0a-4d16-aa04-f3cb192e780d",
+      "SecretText": null,
+      "StartDateTime": "2025-04-08T22:35:58Z"
+    }
+  ],
+  "PreferredSingleSignOnMode": "saml",
+  "PreferredTokenSigningKeyThumbprint": "8853D589F22D4BBB214C1F7D88FF932D0B8AFD2A",
+  "RemoteDesktopSecurityConfiguration": {
+    "Id": null,
+    "IsRemoteDesktopProtocolEnabled": null,
+    "TargetDeviceGroups": null
+  },
+  "ReplyUrls": [
+    "https://accounts.google.com/samlrp/01oxnf6j4098irk/acs"
+  ],
+  "ResourceSpecificApplicationPermissions": [],
+  "SamlSingleSignOnSettings": {
+    "RelayState": ""
+  },
+  "ServicePrincipalNames": [
+    "https://accounts.google.com/samlrp/01oxnf6j4098irk",
+    "google.com",
+    "http://google.com",
+    "02089b8d-40f9-4f37-8199-0c723f34002c"
+  ],
+  "ServicePrincipalType": "Application",
+  "SignInAudience": "AzureADMyOrg",
+  "Synchronization": {
+    "Id": null,
+    "Jobs": null,
+    "Secrets": null,
+    "Templates": null
+  },
+  "Tags": [
+    "WindowsAzureActiveDirectoryIntegratedApp"
+  ],
+  "TokenEncryptionKeyId": null,
+  "TokenIssuancePolicies": null,
+  "TokenLifetimePolicies": null,
+  "TransitiveMemberOf": null,
+  "VerifiedPublisher": {
+    "AddedDateTime": null,
+    "DisplayName": null,
+    "VerifiedPublisherId": null
+  },
+  "AdditionalProperties": {
+    "createdDateTime": "2025-04-08T00:11:07Z"
+  }
+}
