@@ -21,19 +21,22 @@ jobs:
         shell: pwsh
         run: ./scripts/export_google_workspace_app.ps1
 
-      - name: 🧼 Configure Git
+      - name: 📦 Commit and push exported config
         shell: pwsh
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
-          git remote set-url origin https://x-access-token:${env:GH_PAT}@github.com/${{ github.repository }}
 
-      - name: 📦 Commit and push exported config
-        shell: pwsh
-        run: |
+          $repoUrl = "https://x-access-token:${env:GH_PAT}@github.com/${{ github.repository }}"
+
+          git remote remove origin
+          git remote add origin $repoUrl
+
           git add config/
-          git commit -m "📦 Auto-exported Google Workspace app config"
-          git push https://x-access-token:${env:GH_PAT}@github.com/${{ github.repository }} HEAD:main
+          git diff-index --quiet HEAD || git commit -m "📦 Auto-exported Google Workspace app config"
+          git push origin HEAD:main
 
       - name: 🚀 Import App Configuration
         shell: pwsh
