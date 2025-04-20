@@ -20,6 +20,17 @@ $tokenResponse = Invoke-RestMethod -Method Post -Uri "https://login.microsoftonl
     grant_type    = "client_credentials"
 } -ContentType "application/x-www-form-urlencoded"
 
+Write-Host "📁 Raw Token Response: $tokenResponse"
+
+# Decode JWT token payload (base64)
+$parts = $tokenResponse.access_token -split '\.'
+$payload = $parts[1] + '==='
+$decoded = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($payload))
+$decodedJson = $decoded | ConvertFrom-Json
+
+# Show only key fields
+$decodedJson | Select aud, roles, scp
+
 $accessToken = $tokenResponse.access_token
 
 if (-not $accessToken) {
@@ -53,3 +64,4 @@ Write-Host "✅ Exported service principal config"
 Get-MgServicePrincipalAppRoleAssignedTo -ServicePrincipalId $sp.Id |
 Select-Object PrincipalDisplayName, PrincipalId, AppRoleId |
 Export-Csv -Path "../config/user_assignments.csv" -NoTypeInformation
+
