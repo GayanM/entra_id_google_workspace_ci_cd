@@ -22,14 +22,20 @@ $tokenResponse = Invoke-RestMethod -Method Post -Uri "https://login.microsoftonl
 
 Write-Host "📁 Raw Token Response: $tokenResponse"
 
-# Decode JWT token payload (base64)
+# 1. Split the token
 $parts = $tokenResponse.access_token -split '\.'
-$payload = $parts[1] + '==='
-$decoded = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($payload))
-$decodedJson = $decoded | ConvertFrom-Json
 
-# Show only key fields
-$decodedJson | Select aud, roles, scp
+# 2. Fix padding + convert from base64url to base64
+$payload = $parts[1].PadRight($parts[1].Length + (4 - $parts[1].Length % 4) % 4, "=")
+$payload = $payload -replace '_', '/' -replace '-', '+'
+
+# 3. Decode
+$bytes = [Convert]::FromBase64String($payload)
+$json = [System.Text.Encoding]::UTF8.GetString($bytes)
+$decoded = $json | ConvertFrom-Json
+
+# 4. Print roles or scopes
+$decoded | Select aud, roles, scp
 
 $accessToken = $tokenResponse.access_token
 
