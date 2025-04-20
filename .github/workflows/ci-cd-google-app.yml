@@ -6,7 +6,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     env:
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -21,16 +21,18 @@ jobs:
         shell: pwsh
         run: ./scripts/export_google_workspace_app.ps1
 
-      - name: 🔁 Commit exported config to repo
+      - name: 🧼 Configure Git
         shell: pwsh
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
-          git add ./config/google_workspace_config.json ./config/user_assignments.csv
-          git commit -m "[auto-export] Google Workspace config"
-          git push
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+
+      - name: 📦 Commit and push exported config
+        shell: pwsh
+        run: |
+          git add config/
+          git commit -m "📦 Auto-exported Google Workspace app config"
+          git push https://x-access-token:${env:GH_PAT}@github.com/${{ github.repository }} HEAD:main
 
       - name: 🚀 Import App Configuration
         shell: pwsh
