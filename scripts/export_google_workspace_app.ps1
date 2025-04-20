@@ -21,5 +21,5 @@ Write-Host "✅ Exported service principal config"
 # Export user assignments
 Get-MgServicePrincipalAppRoleAssignedTo -ServicePrincipalId $sp.Id |
 Select-Object PrincipalDisplayName, PrincipalId, AppRoleId |
-Export-Csv -Path (Join-Path $exportPath "user_assignments.csv") -NoTypeInformation
+Export-Csv -Path (Join-Path $exportPath "user_assignments.csv") -Append -NoTypeInformation
 Write-Host "✅ Exported user assignments"
