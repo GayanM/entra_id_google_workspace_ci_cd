@@ -1,7 +1,9 @@
 name: CI/CD for Google Workspace App
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
